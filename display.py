@@ -11,11 +11,17 @@ def pick(fun, a, b, count):
     return x, y
 
 
+def pick_step(fun, a, b, step):
+    x = numpy.arange(a, b, step)
+    y = fun(x)
+    return x, y
+
+
 def to_plot(fun, a: float, b: float, title: str,
-            count: int = 1000, major_xaxis: float = 0.1, minor_xaxis: float = 0.05,
+            count: int = 1000, save: bool = 1, major_xaxis: float = 0.1, minor_xaxis: float = 0.05,
             major_yaxis: float = 0.05, minor_yaxis: float = 0.1):
     x, y = pick(fun, a, b, count)
-    ax = pyplot.subplots()[1]
+    pic, ax = pyplot.subplots()
     pyplot.title(title)
     pyplot.plot(x, y, 'b-')
     #  Устанавливаем интервал основных делений:
@@ -29,17 +35,21 @@ def to_plot(fun, a: float, b: float, title: str,
 
     #  Включаем видимость вспомогательных делений:
     ax.minorticks_on()
+    if save:
+        pyplot.savefig(f"{title}.png")
     pyplot.show()
 
 
-def to_table(fun, table_points: list, title: str, count: int = 10):
+def to_table(fun, table_points: list, title: str, save: bool = 1):
     fig, ax = pyplot.subplots()
 
     # hide axes
     ax.axis('off')
     ax.axis('tight')
 
-    y = fun(table_points)
+    y = []
+    for x in table_points:
+        y.append(fun(x))
     data = []
     for x in table_points:
         data.append([x, y[table_points.index(x)]])
@@ -50,4 +60,6 @@ def to_table(fun, table_points: list, title: str, count: int = 10):
 
     pyplot.title(title)
     fig.tight_layout()
+    if save:
+        pyplot.savefig(f"{title}.png")
     pyplot.show()

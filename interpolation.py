@@ -1,4 +1,4 @@
-# for splines
+# for splines and lagrange
 from scipy import interpolate
 
 

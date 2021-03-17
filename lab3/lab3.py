@@ -14,7 +14,7 @@ def lab3():
 
 def rkf45(fun, t, y0):
     r = (integrate.ode(fun)
-         .set_integrator('dopri5')
+         .set_integrator('dopri5', first_step=t[1]-t[0])
          .set_initial_value(y0, t[0]))
 
     y = numpy.zeros((len(t), len(y0)))
@@ -84,6 +84,10 @@ def evaluate(h=0.1):
 
     print('h^3 is about:', h ** 3)
     print('h^3 / euler first step:', h ** 3 / error_local_euler_cauchy[1])
+
+    print('h^6 is about:', h ** 6)
+    print('h^6 / RKF45 first step:', h ** 6 / error_local_rkf45[1])
+    print()
 
     print('\tValues')
     print('t\tExact\tRKF45\tEuler-Cauchy')

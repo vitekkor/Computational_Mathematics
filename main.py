@@ -4,5 +4,6 @@ from lab3.lab3 import lab3
 
 
 if __name__ == '__main__':
+    #lab1(2)
     #lab2()
     lab3()
